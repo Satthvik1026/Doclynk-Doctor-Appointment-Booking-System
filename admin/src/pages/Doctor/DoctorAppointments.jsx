@@ -1,27 +1,26 @@
 import React, { useContext, useEffect } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
-import { AdminContext } from '../../context/AdminContext'
 import { assets } from '../../assets/assets_admin/assets'
+import { AppContext } from '../../context/AppContext'
 
 const DoctorAppointments = () => {
-    const { dToken, appointments, getAppointments, completeAppointment, cancelAppointment } = useContext(DoctorContext)
-    const { calculateAge, slotDateFormat, currency } = useContext(AdminContext)
+    const { dToken, appointments, getAppointments, completeAppointment, cancelAppointment, } = useContext(DoctorContext)
+    const { calculateAge, slotDateFormat, currency } = useContext(AppContext)
 
     useEffect(() => {
         if (dToken) {
 
             getAppointments()
-
         }
     }, [dToken])
-    console.log("Appointments from context:", appointments);
+    // console.log("Appointments from context:", appointments);
 
 
     return (
         <div className='w-full max-w-6xl m-5'>
             <p className='mb-3 text-lg font-medium'>My Appointments</p>
             <div className='bg-white border rounded text-sm max-h-[80vh] min-h-[60vh] overflow-y-scroll'>
-                <div className='hidden sm:grid grid-cols-[0.5fr_3fr_1fr_1fr_2fr_1fr_1fr] py-3 px-6 border-b font-medium'>
+                <div className='hidden sm:grid grid-cols-[0.5fr_2.5fr_1fr_1fr_2fr_1fr_1fr] py-3 px-6 border-b font-medium'>
                     <p>#</p>
                     <p>Patient</p>
                     <p>Payment</p>
@@ -36,15 +35,21 @@ const DoctorAppointments = () => {
                     appointments.map((item, index) => (
                         <div
                             key={index}
-                            className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_1fr_2fr_1fr_1fr] items-center text-gray-600 py-3 px-6 border-b hover:bg-gray-50'
+                            className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_2.5fr_1fr_1fr_2fr_1fr_1fr] items-center text-gray-600 py-3 px-6 border-b hover:bg-gray-50'
                         >
                             <p className='max-sm:hidden'>{index + 1}</p>
                             <div className='flex items-center gap-2'>
                                 <img className='w-8 h-8 rounded-full object-cover' src={item.userData?.image || ''} alt='' />
                                 <p>{item.userData?.name || 'N/A'}</p>
                             </div>
-                            <p>{item.payment ? 'Online' : 'Cash'}</p>
-                            <p>{item.userData?.dob ? calculateAge(item.userData.dob) : 'N/A'}</p>
+                            <p>{item.payment ? 'Paid' : 'Not paid'}</p>
+                            <p>
+                                {item.userData?.dob
+                                    ? (calculateAge(item.userData.dob))
+                                    : 'N/A'
+                                }
+                            </p>
+
                             <p>{slotDateFormat(item.slotDate)}, {item.slotTime}</p>
                             <p>{currency}{item.amount}</p>
                             <div className='flex gap-2'>

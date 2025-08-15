@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { createContext } from "react";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export const DoctorContext = createContext()
 
@@ -26,8 +27,45 @@ const DoctorContextProvider = (props) => {
         }
     }
 
+    useEffect(() => {
+        if (dToken) {
+            getAppointments()
+        }
+    }, [dToken, getAppointments])
+
+
+    const completeAppointment = async (appointmentId) => {
+        try {
+            const { data } = await axios.post(backendUrl + '/api/doctor/complete-appointment', { appointmentId }, { headers: { dToken } })
+            if (data.success) {
+                toast.success(data.message);
+                getAppointments()
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+
+    const cancelAppointment = async (appointmentId) => {
+        try {
+            const { data } = await axios.post(backendUrl + '/api/doctor/cancel-appointment', { appointmentId }, { headers: { dToken } })
+            if (data.success) {
+                toast.success(data.message);
+                getAppointments()
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+
     const value = {
-        dToken, setDToken, backendUrl, setAppointments, appointments, getAppointments
+        dToken, setDToken, backendUrl, setAppointments, appointments, getAppointments, cancelAppointment, completeAppointment,
     }
 
     return (

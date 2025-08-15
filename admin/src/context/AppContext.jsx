@@ -5,13 +5,30 @@ export const AppContext = createContext()
 const AppContextProvider = (props) => {
 
     const currency = '$'
-    const calculateAge = (dob) => {
-        const today = new Date()
-        const birthDate = new Date(dob)
+    // const calculateAge = (dob) => {
+    //     const today = new Date()
+    //     const birthDate = new Date(dob)
 
-        let age = today.getFullYear() - birthDate.getFullYear()
-        return age
-    }
+    //     let age = today.getFullYear() - birthDate.getFullYear()
+    //     return age
+    // }
+
+    const calculateAge = (dob) => {
+        if (!dob || dob === 'Not Selected') {
+            return 'N/A';
+        }
+        const birthDate = new Date(dob);
+        if (isNaN(birthDate)) {
+            return 'N/A';
+        }
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    };
 
     const months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 

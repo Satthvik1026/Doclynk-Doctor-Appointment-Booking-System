@@ -54,14 +54,53 @@ const loginDoctor = async (req, res) => {
 const appointmentsDoctor = async (req, res) => {
     try {
         const docId = req.docId
-        const appointments = await appointmentModel.find({ docId })
 
+        const appointments = await appointmentModel
+            .find({ docId })
+            .populate("userId", "name dob");
         res.json({ success: true, appointments })
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: error.message });
-
     }
 }
 
-export { changeAvailability, doctorList, loginDoctor, appointmentsDoctor }
+
+//API to mark appointment as completed for doctor panel
+const appointmentComplete = async (req, res) => {
+    try {
+        const { docId, appointmentId } = req.body;
+        const appointmentData = await appointmentModel.findById(appointmentId);
+
+        if (appointmentData && appointmentData.docId === docId) {
+            await appointmentModel.findByIdAndUpdate(appointmentId, { isCompleted: true });
+            res.json({ success: true, message: "Appointment marked as completed" });
+        } else {
+            res.json({ success: false, message: "Appointment NOT marked as completed" });
+
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+//API to cancel appointment as completed for doctor panel
+const appointmentCancel = async (req, res) => {
+    try {
+        const { docId, appointmentId } = req.body;
+        const appointmentData = await appointmentModel.findById(appointmentId);
+
+        if (appointmentData && appointmentData.docId === docId) {
+            await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true });
+            res.json({ success: true, message: "Appointment cancelled" });
+        } else {
+            res.json({ success: false, message: "Appointment NOT marked as cancelled" });
+
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+export { changeAvailability, doctorList, loginDoctor, appointmentsDoctor, appointmentCancel, appointmentComplete }
