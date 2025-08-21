@@ -1,19 +1,19 @@
 import React, { useContext, useEffect } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
-import { assets } from '../../assets/assets_admin/assets'
+// import { assets } from '../../assets/assets_admin/assets'
+import { assets } from '../../../../frontend/src/assets/assets_frontend/assets'
+
 import { AppContext } from '../../context/AppContext'
 
 const DoctorAppointments = () => {
-    const { dToken, appointments, getAppointments, completeAppointment, cancelAppointment, } = useContext(DoctorContext)
-    const { calculateAge, slotDateFormat, currency } = useContext(AppContext)
+    const { dToken, appointments, getAppointments, completeAppointment, cancelAppointment } = useContext(DoctorContext)
+    const { calculateAge, slotDateFormat, currencySymbol } = useContext(AppContext)
 
     useEffect(() => {
         if (dToken) {
-
             getAppointments()
         }
     }, [dToken])
-    // console.log("Appointments from context:", appointments);
 
 
     return (
@@ -34,39 +34,48 @@ const DoctorAppointments = () => {
                 ) : (
                     appointments.map((item, index) => (
                         <div
-                            key={index}
+
+                            key={item._id}
                             className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_2.5fr_1fr_1fr_2fr_1fr_1fr] items-center text-gray-600 py-3 px-6 border-b hover:bg-gray-50'
                         >
                             <p className='max-sm:hidden'>{index + 1}</p>
                             <div className='flex items-center gap-2'>
-                                <img className='w-8 h-8 rounded-full object-cover' src={item.userData?.image || ''} alt='' />
+                                <img className='w-8 h-8 rounded-full object-cover' src={item.userData?.image || assets.profile_pic} alt={item.userData?.name || 'N/A'} />
                                 <p>{item.userData?.name || 'N/A'}</p>
                             </div>
-                            <p>{item.payment ? 'Paid' : 'Not paid'}</p>
+                            <p className={`font-medium ${item.payment ? 'text-green-500' : 'text-red-500'}`}>{item.payment ? 'Paid' : 'Not Paid'}</p>
                             <p>
-                                {item.userData?.dob
-                                    ? (calculateAge(item.userData.dob))
+                                {item.userData?.dob && calculateAge(item.userData.dob) !== 'N/A'
+                                    ? calculateAge(item.userData.dob)
                                     : 'N/A'
                                 }
                             </p>
-
                             <p>{slotDateFormat(item.slotDate)}, {item.slotTime}</p>
-                            <p>{currency}{item.amount}</p>
+                            <p>{currencySymbol}{item.amount}</p>
+
                             <div className='flex gap-2'>
-                                <img
-                                    onClick={() => cancelAppointment(item._id)}
-                                    className='w-6 h-6 cursor-pointer'
-                                    src={assets.cancel_icon}
-                                    alt='Cancel'
-                                    title="Cancel"
-                                />
-                                <img
-                                    onClick={() => completeAppointment(item._id)}
-                                    className='w-6 h-6 cursor-pointer'
-                                    src={assets.tick_icon}
-                                    alt='Complete'
-                                    title="Complete"
-                                />
+                                {item.cancelled ? (
+                                    <p className='text-red-500 font-medium text-xs'>Cancelled</p>
+                                ) : item.isCompleted ? (
+                                    <p className='text-green-500 font-medium text-xs'>Completed</p>
+                                ) : (
+                                    <>
+                                        <img
+                                            onClick={() => cancelAppointment(item._id)}
+                                            className='w-6 h-6 cursor-pointer'
+                                            src={assets.cancel_icon}
+                                            alt='Cancel'
+                                            title="Cancel"
+                                        />
+                                        <img
+                                            onClick={() => completeAppointment(item._id)}
+                                            className='w-6 h-6 cursor-pointer'
+                                            src={assets.tick_icon}
+                                            alt='Complete'
+                                            title="Complete"
+                                        />
+                                    </>
+                                )}
                             </div>
                         </div>
                     ))
@@ -76,4 +85,4 @@ const DoctorAppointments = () => {
     )
 }
 
-export default DoctorAppointments
+export default DoctorAppointments;
