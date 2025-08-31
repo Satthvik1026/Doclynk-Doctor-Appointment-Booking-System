@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
-// import { assets } from '../../assets/assets_admin/assets'
-import { assets } from '../../../../frontend/src/assets/assets_frontend/assets'
+import { assets } from '../../assets/assets_admin/assets'
+
 
 import { AppContext } from '../../context/AppContext'
 
@@ -15,12 +15,14 @@ const DoctorAppointments = () => {
         }
     }, [dToken])
 
+    console.log(appointments)
+
 
     return (
         <div className='w-full max-w-6xl m-5'>
             <p className='mb-3 text-lg font-medium'>My Appointments</p>
             <div className='bg-white border rounded text-sm max-h-[80vh] min-h-[60vh] overflow-y-scroll'>
-                <div className='hidden sm:grid grid-cols-[0.5fr_2.5fr_1fr_1fr_2fr_1fr_1fr] py-3 px-6 border-b font-medium'>
+                <div className='hidden sm:grid grid-cols-[0.5fr_2.3fr_1fr_1fr_2fr_1fr_1fr] py-3 px-6 border-b font-medium'>
                     <p>#</p>
                     <p>Patient</p>
                     <p>Payment</p>
@@ -36,11 +38,11 @@ const DoctorAppointments = () => {
                         <div
 
                             key={item._id}
-                            className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_2.5fr_1fr_1fr_2fr_1fr_1fr] items-center text-gray-600 py-3 px-6 border-b hover:bg-gray-50'
+                            className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_2.3fr_1fr_1fr_2fr_1fr_1fr] items-center text-gray-600 py-3 px-6 border-b hover:bg-gray-50'
                         >
                             <p className='max-sm:hidden'>{index + 1}</p>
                             <div className='flex items-center gap-2'>
-                                <img className='w-8 h-8 rounded-full object-cover' src={item.userData?.image || assets.profile_pic} alt={item.userData?.name || 'N/A'} />
+                                <img className='w-8 h-8 rounded-full object-cover' src={item.userId?.image || assets.profile_pic} alt={item.userData?.name || 'N/A'} />
                                 <p>{item.userData?.name || 'N/A'}</p>
                             </div>
                             <p className={`font-medium ${item.payment ? 'text-green-500' : 'text-red-500'}`}>{item.payment ? 'Paid' : 'Not Paid'}</p>

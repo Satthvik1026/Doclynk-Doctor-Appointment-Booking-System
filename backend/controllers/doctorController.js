@@ -57,7 +57,7 @@ const appointmentsDoctor = async (req, res) => {
 
         const appointments = await appointmentModel
             .find({ docId })
-            .populate("userId", "name dob");
+            .populate("userId", "name dob image");
         res.json({ success: true, appointments })
     } catch (error) {
         console.log(error);
@@ -239,4 +239,22 @@ const updateDoctorProfile = async (req, res) => {
         res.json({ success: false, message: error.message });
     }
 }
-export { changeAvailability, doctorList, loginDoctor, appointmentsDoctor, appointmentCancel, appointmentComplete, doctorDashboard, doctorProfile, updateDoctorProfile }
+
+//API to search for doctors
+const searchDoctors = async (req, res) => {
+    try {
+        const { query } = req.query;
+
+        const doctors = await doctorModel.find({
+            $or: [
+                { name: { $regex: query, $options: "i" } },
+                { specalization: { $regex: query, $options: "i" } },
+            ]
+        });
+        res.json({ success: true, doctors })
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+export { changeAvailability, doctorList, loginDoctor, appointmentsDoctor, appointmentCancel, appointmentComplete, doctorDashboard, doctorProfile, updateDoctorProfile, searchDoctors }

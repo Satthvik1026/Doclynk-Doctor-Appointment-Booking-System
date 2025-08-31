@@ -8,6 +8,7 @@ import Contact from './pages/Contact'
 import MyProfile from './pages/MyProfile'
 import Login from './pages/Login'
 import MyAppointment from './pages/MyAppointments'
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import './index.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -32,7 +33,7 @@ const App = () => {
         <Route path='/my-appointments' element={<MyAppointment />} />
         <Route path='/appointment/:docId' element={<Appointment />} />
         <Route path='/payment-gateway' element={<Payment />} />
-
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       </Routes>
       <Footer />
 
