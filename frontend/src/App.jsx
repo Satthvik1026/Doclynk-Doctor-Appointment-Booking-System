@@ -15,6 +15,7 @@ import Footer from './components/Footer'
 import Payment from './pages/Payment'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Chatbot from './components/chatbot.jsx'
 
 const App = () => {
 
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       </Routes>
       <Footer />
+      <Chatbot />
 
     </div>
   )
