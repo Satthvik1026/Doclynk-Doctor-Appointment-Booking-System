@@ -3,6 +3,8 @@ import { AdminContext } from '../../context/AdminContext'
 import { AppContext } from '../../context/AppContext'
 import { assets } from '../../assets/assets_admin/assets'
 
+
+
 const AllAppointments = () => {
     const { aToken, appointments, getAllAppointments, cancelAppointment } = useContext(AdminContext)
     const { calculateAge, slotDateFormat, currency } = useContext(AppContext)
@@ -13,10 +15,6 @@ const AllAppointments = () => {
         }
     }, [aToken])
 
-    // const handleCancel = async (appointmentId) => {
-    //     await cancelAppointment(appointmentId)
-    //     await getAllAppointments()
-    // }
 
     return (
         <div className='w-full max-w-6xl m-5'>
@@ -31,14 +29,18 @@ const AllAppointments = () => {
                     <p>Fees</p>
                     <p>Actions</p>
                 </div>
-                {appointments.map((item, index) => (
+                {appointments.reverse().map((item, index) => (
                     <div
                         key={index}
                         className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-50'>
                         <p className='max-sm:hidden'>{index + 1}</p>
 
                         <div className='flex items-center gap-2'>
-                            <img className='w-8 h-8 rounded-full object-cover' src={item.userData?.image} alt='' />
+                            <img
+                                className='w-8 h-8 rounded-full object-cover'
+                                src={assets.patients_icon}
+                                alt='user'
+                            />
                             <p>{item.userData?.name || 'N/A'}</p>
                         </div>
 

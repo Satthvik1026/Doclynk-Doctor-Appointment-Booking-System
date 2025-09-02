@@ -25,8 +25,6 @@ const Login = () => {
                 } else {
                     toast.error(data.message)
                     // console.log(data.message)
-
-
                 }
             } else {
                 const { data } = await axios.post(backendUrl + '/api/user/login', { password, email })

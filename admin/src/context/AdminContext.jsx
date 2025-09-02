@@ -58,7 +58,6 @@ export const AdminContextProvider = (props) => {
             const { data } = await axios.get(backendUrl + '/api/admin/appointments', { headers: { aToken } })
             if (data.success) {
                 setAppointments(data.appointments)
-                console.log(data.appointments)
             } else {
                 toast.error(data.message)
             }
@@ -95,26 +94,6 @@ export const AdminContextProvider = (props) => {
             console.log("Admin cancellation request caught an error. Check console for details."); // For debugging
         }
     };
-
-    // const cancelAppointment = async (appointmentId) => {
-    //     try {
-
-    //         const data = await axios.post(backendUrl + '/api/admin/cancel-appointment', { appointmentId }, { headers: { aToken } })
-    //         if (!data.success) {
-    //             console.log("error occured")
-    //         }
-    //         if (data.success) {
-    //             toast.success(data.message)
-    //             await getAllAppointments()
-    //         } else {
-    //             toast.error(data.message)
-    //             console.log("test")
-    //         }
-    //     } catch (error) {
-    //         toast.error(error.message)
-
-    //     }
-    // }
 
     const getDashData = async () => {
         try {
