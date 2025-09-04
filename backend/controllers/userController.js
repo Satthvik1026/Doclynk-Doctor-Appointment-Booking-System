@@ -139,14 +139,12 @@ const bookAppointment = async (req, res) => {
             return res.json({ success: false, message: "Missing required booking details." });
         }
 
-        // FIX: Moved docData fetch to the top of the logic block
         const docData = await doctorModel.findById(docId).select('-password');
 
         if (!docData) {
             return res.json({ success: false, message: "Doctor with the provided ID not found." });
         }
 
-        // FIX: Uses 'available' assuming the typo in doctorModel.js has been corrected
         if (!docData.available) {
             return res.json({ success: false, message: "Doctor is not available for booking." });
         }

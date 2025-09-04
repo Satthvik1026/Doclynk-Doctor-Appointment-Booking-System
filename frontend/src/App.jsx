@@ -15,7 +15,7 @@ import Footer from './components/Footer'
 import Payment from './pages/Payment'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import Chatbot from './components/chatbot.jsx'
+import Chatbot from './components/Chatbot.jsx'
 
 const App = () => {
 

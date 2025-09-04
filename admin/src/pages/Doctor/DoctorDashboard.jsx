@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContext, useEffect, useCallback } from 'react' // FIX: Import useCallback
+import { useContext, useEffect, useCallback } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 import { assets } from '../../assets/assets_admin/assets'
 import { AppContext } from '../../context/AppContext'
@@ -8,13 +8,11 @@ const DoctorDashboard = () => {
     const { dToken, dashData, getDashData } = useContext(DoctorContext)
     const { currencySymbol, slotDateFormat } = useContext(AppContext)
 
-
     const fetchDashboardData = useCallback(() => {
         if (dToken) {
             getDashData();
         }
     }, [dToken, getDashData]);
-
 
     useEffect(() => {
         fetchDashboardData();

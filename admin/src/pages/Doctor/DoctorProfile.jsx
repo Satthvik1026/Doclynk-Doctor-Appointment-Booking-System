@@ -5,7 +5,6 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 
 const DoctorProfile = () => {
-    // FIX: Destructured backendUrl from DoctorContext where it is defined
     const { dToken, profileData, setProfileData, getProfileData, backendUrl } = useContext(DoctorContext)
     const { currency } = useContext(AppContext)
 
@@ -69,7 +68,6 @@ const DoctorProfile = () => {
                 <div className='flex-1 border border-stone-100 rounded-lg p-8 py-7 bg-white'>
                     <p className='flex items-center gap-2 text-3xl font-medium text-gray-700'>{profileData.name}</p>
                     <div className='flex items-center gap-2 mt-1 text-gray-600'>
-                        {/* FIX: Removed redundant experience display */}
                         <p>{profileData.degree} - {profileData.speciality}</p>
                         <button className='py-0.5 px-2 border text-xs rounded-full'>{profileData.experience}</button>
                     </div>
@@ -93,7 +91,6 @@ const DoctorProfile = () => {
                     </div>
 
                     <div className='flex items-center gap-2 pt-2'>
-                        {/* FIX: Disabled checkbox when not in edit mode for better UX */}
                         <input onChange={handleChange} checked={profileData.available} type="checkbox" name="available" id="available-checkbox" disabled={!isEdit} />
                         <label htmlFor="available-checkbox">Available for appointments</label>
                     </div>

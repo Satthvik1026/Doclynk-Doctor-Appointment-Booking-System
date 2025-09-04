@@ -40,13 +40,6 @@ const Navbar = () => {
                     {location.pathname === '/doctors' && <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto absolute bottom-0 left-1/2 -translate-x-1/2' />}
                 </NavLink>
 
-                {/* <NavLink to='/about'>
-                    <li className='py-1'>
-                        ABOUT
-                    </li>
-                    <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-                </NavLink> */}
-
                 <NavLink
                     to='/about'
                     className={({ isActive }) =>
@@ -56,13 +49,6 @@ const Navbar = () => {
                     ABOUT
                     {location.pathname === '/about' && <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto absolute bottom-0 left-1/2 -translate-x-1/2' />}
                 </NavLink>
-
-                {/* <NavLink to='/contact'>
-                    <li className='py-1'>
-                        CONTACT
-                    </li>
-                    <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-                </NavLink> */}
 
                 <NavLink
                     to='/contact'

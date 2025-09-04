@@ -25,11 +25,8 @@ export const AdminContextProvider = (props) => {
                 }
             )
 
-
             if (data.success) {
                 setDoctors(data.doctors)
-
-
             } else {
                 console.log("API returned success: false", data)
                 toast.error(data.message)

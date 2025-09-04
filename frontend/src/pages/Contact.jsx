@@ -24,8 +24,8 @@ const Contact = () => {
 
         emailjs
             .send(
-                import.meta.env.VITE_EMAILJS_SERVICE_ID, // replace with your EmailJS service ID
-                import.meta.env.VITE_TEMPLATE_ID, // replace with your template ID
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_TEMPLATE_ID,
                 {
                     from_name: form.name,
                     to_name: import.meta.env.VITE_TO_NAME,
@@ -33,7 +33,7 @@ const Contact = () => {
                     to_email: import.meta.env.VITE_TO_MAIL,
                     message: form.message,
                 },
-                import.meta.env.VITE_EMAILJS_PUB_KEY // replace with your public key
+                import.meta.env.VITE_EMAILJS_PUB_KEY
             )
             .then(
                 () => {

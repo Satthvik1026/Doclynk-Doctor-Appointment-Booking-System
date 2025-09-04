@@ -1,8 +1,5 @@
-// backend/controllers/chatbotController.js
-
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Initialize the Gemini model
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -40,8 +37,6 @@ const askChatbot = async (req, res) => {
         const result = await model.generateContent(prompt);
         const response = await result.response;
 
-        // FIX: Check if the response was blocked by safety filters
-        // This is the most common reason for an empty or failed response to a sensitive query.
         if (!response.text()) {
             // If the model returns no text, it was likely blocked.
             // We send our pre-defined safe response instead of erroring out.

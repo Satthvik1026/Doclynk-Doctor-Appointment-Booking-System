@@ -156,7 +156,7 @@ const doctorDashboard = async (req, res) => {
 
         const appointments = await appointmentModel
             .find({ docId })
-            .populate("userId", "name dob image") // FIX: Populate userId to get patient data
+            .populate("userId", "name dob image")
             .lean();
 
         let earnings = 0;
@@ -235,7 +235,7 @@ const updateDoctorProfile = async (req, res) => {
 
         res.json({ success: true, message: "Profile updated successfully" });
     } catch (error) {
-        console.log("Error in updateDoctorProfile:", error); // FIX: Corrected the console log message
+        console.log("Error in updateDoctorProfile:", error);
         res.json({ success: false, message: error.message });
     }
 }

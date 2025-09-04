@@ -3,8 +3,6 @@ import jwt from "jsonwebtoken";
 // User authentication middleware
 const authDoctor = async (req, res, next) => {
     try {
-
-
         const { dtoken } = req.headers;
 
         if (!dtoken) {
@@ -13,7 +11,6 @@ const authDoctor = async (req, res, next) => {
 
         const token_decode = jwt.verify(dtoken, process.env.JWT_SECRET);
 
-        // req.body.userId = token_decode.id
         req.docId = token_decode.id
 
 

@@ -3,8 +3,6 @@ import { AdminContext } from '../../context/AdminContext'
 import { AppContext } from '../../context/AppContext'
 import { assets } from '../../assets/assets_admin/assets'
 
-
-
 const AllAppointments = () => {
     const { aToken, appointments, getAllAppointments, cancelAppointment } = useContext(AdminContext)
     const { calculateAge, slotDateFormat, currency } = useContext(AppContext)
@@ -14,7 +12,6 @@ const AllAppointments = () => {
             getAllAppointments()
         }
     }, [aToken])
-
 
     return (
         <div className='w-full max-w-6xl m-5'>
@@ -50,7 +47,6 @@ const AllAppointments = () => {
                                 : 'N/A'}
                         </p>
 
-
                         <p>{slotDateFormat(item.slotDate) || 'N/A'} at {item.slotTime || 'N/A'}</p>
 
                         <div className='flex items-center gap-2'>
@@ -59,7 +55,6 @@ const AllAppointments = () => {
                         </div>
 
                         <p>{item.amount ? `${currency}${item.amount}` : 'N/A'}</p>
-
 
                         {
                             item.cancelled ?
