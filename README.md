@@ -16,7 +16,9 @@ An advanced full-stack doctor appointment booking system designed to seamlessly 
 
 ### 🚀 Live Demo
 
-**(Link to your deployed Heroku/Vercel/Netlify site here)**
+https://doclynk-doctor-appointment-booking-ksfz.onrender.com
+
+admin panel: https://doclynk-doctor-appointment-booking-9w19.onrender.com
 
 ---
 
